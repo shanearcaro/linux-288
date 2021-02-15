@@ -15,7 +15,7 @@ chr() {
   printf "\\$(printf '%03o' "$1")"
 }
 
-# Array is used to store all wikepedia pages
+# Array is used to store all wikipedia pages
 pages=()
 
 # For loop to create all letter combinations used for wikipedia pages
