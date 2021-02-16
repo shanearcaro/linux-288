@@ -25,10 +25,8 @@ for ((i=65; $i<=90; i=$i+1)); do
     done
 done
 
-pages_length=${#pages[*]}
-
 # Download all wikipedia pages and convert to text file
-for ((i=0; $i<$pages_length; i=$i+1)); do
+for ((i=0; $i<${#pages[*]}; i=$i+1)); do
     wget "https://en.wikipedia.org/wiki/${pages[$i]}" -O "./website_downloads/pages/${pages[$i]}.html"
     lynx -dump -nolist "./website_downloads/pages/${pages[$i]}.html" > "./website_downloads/text/${pages[$i]}.txt"
     # Once file is downloaded add all words to master file with one word per line
