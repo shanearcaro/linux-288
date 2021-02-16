@@ -30,9 +30,9 @@ for ((i=0; $i<${#pages[*]}; i=$i+1)); do
     wget "https://en.wikipedia.org/wiki/${pages[$i]}" -O "./website_downloads/pages/${pages[$i]}.html"
     lynx -dump -nolist "./website_downloads/pages/${pages[$i]}.html" > "./website_downloads/text/${pages[$i]}.txt"
     # Once file is downloaded add all words to master file with one word per line
-    echo $(cat "./website_downloads/text/${pages[$i]}.txt" | grep -wo -E '[a-zA-Z][a-zA-Z_]*' | sort -f) | tr " " "\n" >> "./website_downloads/output/master.txt" 
+    echo $(cat "./website_downloads/text/${pages[$i]}.txt" | grep -wo -E '[a-zA-Z][a-zA-Z_]*') | tr " " "\n" >> "./website_downloads/output/master.txt" 
 done
 
 # Sort all occurences of words so uniq can count then resort in reverse number order and print the top 15
 # Split file so only two words can fit on a line to make output more readable
-echo $(cat "./website_downloads/output/master.txt" | sort | uniq -ic | sort -nr | head -15) | xargs -n2 > "./website_downloads/output/occurrences.txt"
+echo $(cat "./website_downloads/output/master.txt" | sort -f | uniq -ic | sort -nr | head -15) | xargs -n2 > "./website_downloads/output/occurrences.txt"
