@@ -8,7 +8,7 @@ void insertionSort(char* var[], int size);
 int main(int argc, char* arv[], char* envp[]) {
     int index = 0;
 
-    // Can't tell size of array so just iterator through with counter
+    // Can't tell size of array so just iterate through with counter
     while (envp[index])
         index++;
     insertionSort(envp, index);
