@@ -99,13 +99,12 @@ void print(char* binary) {
 
 /**
  * I tried using the math.h power function here but there was a problem with the
- * linked detecting the library. I included the library in the command but I was
+ * linker detecting the library. I included the library in the command but I was
  * still having problems with it. Because a power function is super simple I 
  * just made my own and used it here.
 */
 long long power(int a, int b) {
-    long long total = a;
-    for (int i = 1; i < b; i++)
-         total *= a;
-    return total;
+    if (b <= 1)
+        return a;
+    return a * power(a, b - 1);
 }

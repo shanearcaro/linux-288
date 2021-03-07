@@ -16,8 +16,8 @@
 
 int main(int argc, char* argv[]) {
     int opt;
-    // Not handeling input file, output file currently
-    while ((opt=getopt(argc, argv, ":cduf:s:")) != -1) {
+    
+    while ((opt = getopt(argc, argv, ":cduf:s:")) != -1) {
         switch(opt) {
             case 'c':
             case 'd':
@@ -37,10 +37,15 @@ int main(int argc, char* argv[]) {
                 printf("Unknown option flag: %c\n", optopt);
                 break;
         }
-        
     }
 
+    int fileCount = 0;
     for (; optind < argc; optind++) {
-        printf("argument: %s\n", argv[optind]);
+        if (strstr(argv[optind], ".txt")) {
+            printf(fileCount == 0 ? "Input File: %s\n" : "Output File: %s\n", argv[optind]);
+            fileCount++;
+            continue;
+        }
+        printf("Extra argument: %s\n", argv[optind]);
     }
 }
