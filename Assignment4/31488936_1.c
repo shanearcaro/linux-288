@@ -62,6 +62,10 @@ void radixsort(float *array, unsigned int length, unsigned int bits) {
         aIndex = bIndex = 0;
     }
     printf("Total: %f\n", sum);
+
+    // Free reserved memory
+    free(bucketsA);
+    free(bucketsB);
 }
 
 int main(int argc, char* argv[]) {
