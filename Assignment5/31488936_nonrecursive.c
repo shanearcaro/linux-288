@@ -65,7 +65,8 @@ int main(int argc, char* argv[]) {
         exit(EXIT_FAILURE);
     }
     search(argv[1]);
-    sort(&q_closed);
+    q_sort(&q_closed);
+    q_print(&q_closed);
 }
 
 /**
@@ -249,11 +250,7 @@ struct File getInfo(char* path) {
 }
 
 /**
- * Sort searched files by their size
- * 
- * This function works as intended but is pretty slow because of q_peekIndex
- * Having to iterate through the queue every time by it's next pointer just to
- * find an element makes the sorting incredibly slow.
+ * Sort queue baised on size of File
  */
 void q_sort(struct Queue** head) {
     int size = q_size(head);
@@ -261,25 +258,27 @@ void q_sort(struct Queue** head) {
     // Queue is already sorted with 0 or 1 elements
     if (size <= 1)
         return;
+    
+    struct Queue* first = (*head);
 
     for (int i = 0; i < size; i++) {
+        struct Queue* second = first->next;
         for (int j = i + 1; j < size; j++) {
             // Flip file spots if first file is bigger than second
-            struct Queue* first = q_peekIndex(head, i);
-            struct Queue* second = q_peekIndex(head, j);
-
             if (first->file.fileSize > second->file.fileSize) {
                 struct File temp = first->file;
                 first->file = second->file;
                 second->file = temp;
             }
+            second = second->next;
         }
+        first = first->next;
     }
 }
 
 /**
- * Faster way to sort queue is by changing the queue into an array of files
- * The files can be directly compared - sorts incredibly fast compared to q_sort
+ * Instead of sorting the Queue, convert it to an array of
+ * Files and sort the files array
  */
 void sort(struct Queue** head) {
     int size = q_size(head);
