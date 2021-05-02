@@ -36,7 +36,7 @@ void* start(void* worker) {
 }
 
 void getFile(char* path, int* length) {
-    int i, fd;
+    int fd;
     int fileSize, count;
     struct stat status;
 
